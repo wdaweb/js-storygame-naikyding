@@ -8,12 +8,44 @@
 
     <!-- input sweetalert2 -->
     <script src="js/sweetalert2.all.min.js"></script>
-    <style>body{font-family: 'Noto Sans TC', sans-serif;}</style>
+    <style>
+        body{
+            font-family: 'Noto Sans TC', sans-serif;
+            background-image: url('img/army_bg.jpg') ;
+            background-size:cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            }
+        .btn{
+            width:100vw;
+            height:100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-start{
+            width:150px;
+            height:50px;
+            border-radius: 1rem;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        .btn-start:hover{
+            background-color: gray;
+            color: white;
+        }
+
+    </style>
     <title>storyGame</title>
 </head>
 <body>
+    <div class="btn">
+        <button class="btn-start" onclick="game()">開始游戲</button>
+    </div>
     <script>
-        (async () => {	
+        function game(){
+            (async () => {	
             const inputValue = '韓導';
             const { value: yourName } = await Swal.fire({
                 title: '中華民國保衛戰',
@@ -189,6 +221,7 @@
                 })
             }
         })()
+        }
     </script>
 </body>
 </html>
