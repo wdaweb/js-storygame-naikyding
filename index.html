@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+
+    <!-- input sweetalert2 -->
+    <script src="js/sweetalert2.all.min.js"></script>
+    <style>body{font-family: 'Noto Sans TC', sans-serif;}</style>
+    <title>storyGame</title>
+</head>
+<body>
+    <script>
+        (async () => {	
+            const inputValue = '韓導';
+            const { value: yourName } = await Swal.fire({
+                title: '中華民國保衛戰',
+                text:'輸入大名，加入庶民軍團',
+                input: 'text',
+                inputValue: inputValue,
+                confirmButtonText: '好了',
+                inputValidator: (value) => {
+                    if (!value) {
+                    return '什麼? 你沒名字!!'
+                    }
+                }
+            })
+            if (!yourName) {
+                return '什麼?你沒名字!'
+            }
+            if (yourName) {
+                Swal.fire({
+                    title:`這個挑戰可能會粉身碎骨!`,
+                    text: `${yourName} 你真的準備好了嗎?`,
+                    confirmButtonText: 'Yes, I do!',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    cancelButtonText:'被動退出'
+                }).then((result)=>{
+                    if(result.value){  //yes i do
+                        Swal.fire({
+                            title: '中華民國萬歲!',
+                            text: '請大喊三聲「中華民國萬歲!」進行保衛戰',
+                            imageUrl: 'img/taiwan.png',
+                            imageWidth: 500,
+                            imageHeight: 230,
+                            imageAlt: '中華民國萬歲',
+                            confirmButtonText: '完成效忠'
+                            }).then((result)=>{
+                                console.log(result);
+                                if(result){
+                                    let timerInterval
+                                    Swal.fire({
+                                        title: '連線人民解放軍',
+                                        html: '臺灣資料將傳至對臺作戰中心 <b></b> 毫秒後，傳輸完成!',
+                                        timer: 4000,
+                                        timerProgressBar: true,
+                                        onBeforeOpen: () => {
+                                            Swal.showLoading()
+                                            timerInterval = setInterval(() => {
+                                                Swal.getContent().querySelector('b').textContent = Swal.getTimerLeft()
+                                            }, 100)
+                                        },
+                                        onClose: () => {
+                                            clearInterval(timerInterval)
+                                        }
+                                    }).then((result) => {
+                                        if (
+                                            /* Read more about handling dismissals below */
+                                            result.dismiss === Swal.DismissReason.timer
+                                        ) {
+                                            Swal.fire({ //第一關卡
+                                                title: '登革熱!?',
+                                                text: '行軍路上蚊子遍佈，前面有一棵大樹是否爬上去視察一下?',
+                                                imageUrl: 'img/wen.jpg',
+                                                imageWidth: 500,
+                                                imageHeight: 230,
+                                                imageAlt: '大樹',
+                                                confirmButtonText: '爬樹視察',
+                                                showCancelButton: true,
+                                                cancelButtonColor: '#d33',
+                                                cancelButtonText:'視而不見'
+                                            }).then((result)=>{
+                                                console.log(result);
+                                                if(result.value){ //爬樹
+                                                    Swal.fire({ //第二關卡
+                                                    title:  '最後的身影',
+                                                    text: '樹上充滿登革熱的「埃及斑蚊」，軍醫請假二個月，你已急性感染身亡!',
+                                                    imageUrl: 'img/s-1.jpg',
+                                                    imageWidth: 500,
+                                                    imageHeight: 280,
+                                                    imageAlt: '埃及斑蚊',
+                                                    confirmButtonText:'黯然離去'
+                                                    })
+                                                }else{ //不爬
+                                                    Swal.fire({ //第三關卡
+                                                    title: '芒果乾!?',
+                                                    text: '糧食不足!好幾天沒吃東西，地上有包「芒果乾」要撿拾嗎?',
+                                                    imageUrl: 'img/mango.jpg',
+                                                    imageWidth: 500,
+                                                    imageHeight: 240,
+                                                    imageAlt: '芒果',
+                                                    confirmButtonText: '趕快吃一片',
+                                                    showCancelButton: true,
+                                                    cancelButtonColor: '#d33',
+                                                    cancelButtonText:'再撐一下'
+                                                }).then((result)=>{
+                                                    if(result.value){
+                                                        Swal.fire({ //
+                                                        title:  '身中劇毒',
+                                                        text: '「芒果乾」是敵軍設下的陷阱，!',
+                                                        imageUrl: 'img/images.jpg',
+                                                        imageWidth: 400,
+                                                        imageHeight: 400,
+                                                        imageAlt: '芒果乾',
+                                                        confirmButtonText:'戰死沙場'
+                                                        })
+                                                    }else{
+                                                        Swal.fire({ //第四關卡
+                                                        title: '短兵相接',
+                                                        text: '近距離激烈搏鬥，是否與對方取得共識換取短暫和平??',
+                                                        imageUrl: 'img/chinaArmy.jpg',
+                                                        imageWidth: 500,
+                                                        imageHeight: 240,
+                                                        imageAlt: '芒果',
+                                                        confirmButtonText: '取得酒餓共識',
+                                                        showCancelButton: true,
+                                                        cancelButtonColor: '#d33',
+                                                        cancelButtonText:'直球對決'
+                                                        }).then((result)=>{
+                                                            if(result.value){
+                                                                Swal.fire({ //第五關卡
+                                                                title: '最後一哩路',
+                                                                text: '到了平民的村莊，民眾熱心提供糧食，要吃哪一個?',
+                                                                imageUrl: 'img/bag.jpg',
+                                                                imageWidth: 500,
+                                                                imageHeight: 300,
+                                                                imageAlt: '吃',
+                                                                confirmButtonColor:'#0066CC',
+                                                                confirmButtonText: '草包',
+                                                                showCancelButton: true,
+                                                                cancelButtonColor: '#006030',
+                                                                cancelButtonText:'菜包'
+                                                                }).then((result)=>{
+                                                                    if(result.value){
+                                                                        Swal.fire({
+                                                                        title: '<strong>國家安全　人民有錢</strong>',
+                                                                        imageUrl: 'img/han.jpg',
+                                                                        showCloseButton: true,
+                                                                        confirmButtonText:'發大財'
+                                                                        })
+                                                                    }else{
+                                                                        Swal.fire({
+                                                                        title: '<strong>自由民主 永續之旅</strong>',
+                                                                        imageUrl: 'img/han_j.jpg',
+                                                                        showCloseButton: true,
+                                                                        confirmButtonText:'民主進步'
+                                                                        })
+                                                                    }
+                                                                })
+                                                            }else{
+                                                                Swal.fire({ //
+                                                                    title:  '亂拳打死老師傅',
+                                                                    text: '被偷襲亂拳圍歐',
+                                                                    imageUrl: 'img/han_fa.jpg',
+                                                                    imageWidth: 500,
+                                                                    imageHeight: 400,
+                                                                    imageAlt: '芒果乾',
+                                                                    confirmButtonText:'屍骨無存'
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                                })
+                    }else{  //被動退出
+                        Swal.fire({
+                            imageUrl: 'img/lingba_wait.jpeg',
+                            title:`恁爸等你!`,
+                        }) 
+                    }
+                })
+            }
+        })()
+    </script>
+</body>
+</html>
